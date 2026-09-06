@@ -1,0 +1,117 @@
+<div class="my-tool-container">
+<p>  
+</p><div style="background: rgb(255, 255, 255); border-radius: 12px; border: 2px solid rgb(0, 86, 179); box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 15px; font-family: Arial, sans-serif; margin: 20px auto; max-width: 650px; overflow: hidden;"><div style="background-color: #0056b3; color: white; padding: 20px; text-align: center;"><br /><h2 style="font-size: 22px; margin: 0px 0px 8px;"><br />Global Tile &amp; Flooring Cost Estimator</h2><div><br /></div>
+        <p style="font-size: 14px; margin: 0px; opacity: 0.9;">Calculate exact tiles required, waste allowance, and total flooring cost!</p>
+    </div>
+
+    <!--Body Content Section-->
+    <div style="padding: 20px;">
+        
+        <!--Input Form Fields-->
+        <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <div style="flex: 1 1 0%; min-width: 140px;">
+                    <label style="color: #0056b3; display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">Room Length (Feet):</label>
+                    <input id="roomLength" style="border-radius: 6px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-size: 14px; padding: 10px; width: 100%;" type="number" />
+                </div>
+                <div style="flex: 1 1 0%; min-width: 140px;">
+                    <label style="color: #0056b3; display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">Room Width (Feet):</label>
+                    <input id="roomWidth" style="border-radius: 6px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-size: 14px; padding: 10px; width: 100%;" type="number" />
+                </div>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <div style="flex: 1 1 0%; min-width: 140px;">
+                    <label style="color: #0056b3; display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">Tile Length (Inches):</label>
+                    <input id="tileLength" style="border-radius: 6px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-size: 14px; padding: 10px; width: 100%;" type="number" value="24" />
+                </div>
+                <div style="flex: 1 1 0%; min-width: 140px;">
+                    <label style="color: #0056b3; display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">Tile Width (Inches):</label>
+                    <input id="tileWidth" style="border-radius: 6px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-size: 14px; padding: 10px; width: 100%;" type="number" value="24" />
+                </div>
+            </div>
+
+            <div>
+                <label style="color: #0056b3; display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">Waste / Cutting Allowance (%):</label>
+                <input id="wasteAllowance" style="border-radius: 6px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-size: 14px; padding: 10px; width: 100%;" type="number" value="10" />
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <div style="flex: 1 1 0%; min-width: 140px;">
+                    <label style="color: #0056b3; display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">Select Currency:</label>
+                    <select id="currencySelect" style="background: white; border-radius: 6px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-size: 14px; padding: 10px; width: 100%;">
+                        <option selected="" value="$">USD ($)</option>
+                        <option value="€">EUR (€)</option>
+                        <option value="£">GBP (£)</option>
+                        <option value="₹">INR (₹)</option>
+                        <option value="A$">AUD (A$)</option>
+                        <option value="C$">CAD (C$)</option>
+                    </select>
+                </div>
+                <div style="flex: 1 1 0%; min-width: 140px;">
+                    <label style="color: #0056b3; display: block; font-size: 14px; font-weight: bold; margin-bottom: 5px;">Cost per Tile (Manual):</label>
+                    <input id="unitCost" style="border-radius: 6px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; font-size: 14px; padding: 10px; width: 100%;" type="number" value="3" />
+                </div>
+            </div>
+        </div>
+
+        <!--Calculate Button-->
+        <button onclick="calculateFlooringCost()" style="background-color: #0056b3; border-color: currentcolor; border-image: none; border-radius: 6px; border-style: none; border-width: medium; border: none; color: white; cursor: pointer; font-size: 16px; font-weight: bold; margin-bottom: 20px; padding: 12px; width: 100%;">Calculate Flooring Estimate</button></div>
+</div>
+
+<script>
+    function calculateFlooringCost() {
+        const lengthFt = parseFloat(document.getElementById('roomLength').value) || 0;
+        const widthFt = parseFloat(document.getElementById('roomWidth').value) || 0;
+        const tileLenIn = parseFloat(document.getElementById('tileLength').value) || 0;
+        const tileWidIn = parseFloat(document.getElementById('tileWidth').value) || 0;
+        const wasteInput = parseFloat(document.getElementById('wasteAllowance').value) || 0;
+        const currencySymbol = document.getElementById('currencySelect').value;
+        const costPerTile = parseFloat(document.getElementById('unitCost').value) || 0;
+
+        if (lengthFt <= 0 || widthFt <= 0 || tileLenIn <= 0 || tileWidIn <= 0) {
+            alert('Please enter valid room and tile dimensions!');
+            return;
+        }
+
+        const roomAreaSqFt = lengthFt * widthFt;
+        
+        const tileLenFt = tileLenIn / 12;
+        const tileWidFt = tileWidIn / 12;
+        const singleTileAreaSqFt = tileLenFt * tileWidFt;
+
+        if (singleTileAreaSqFt <= 0) {
+            alert('Invalid tile dimensions provided.');
+            return;
+        }
+
+        const exactTiles = roomAreaSqFt / singleTileAreaSqFt;
+        const wasteMultiplier = 1 + (wasteInput / 100);
+        const totalTilesNeeded = Math.ceil(exactTiles * wasteMultiplier);
+        const estimatedCost = totalTilesNeeded * costPerTile;
+
+        document.getElementById('roomArea').textContent = roomAreaSqFt.toFixed(2);
+        document.getElementById('totalTiles').textContent = totalTilesNeeded;
+        document.getElementById('currencySymbol').textContent = currencySymbol;
+        document.getElementById('totalCost').textContent = estimatedCost.toFixed(2);
+        
+        document.getElementById('resultBox').style.display = 'block';
+    }
+</script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p></p>
