@@ -1,0 +1,73 @@
+<!-- CSS Link -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/username/repository@main/style.css" />
+
+<!-- HTML UI Elements -->
+<div class="my-tool-container">
+    <div class="tool-card">
+        <div class="tool-header">
+            <h2>Global Tile &amp; Flooring Cost Estimator</h2>
+            <p>Calculate exact tiles required, waste allowance, and total flooring cost!</p>
+        </div>
+        
+        <div class="tool-body">
+            <div class="input-group-vertical">
+                <div class="input-row">
+                    <div class="input-field-wrapper">
+                        <label>Room Length (Feet):</label>
+                        <input id="roomLength" type="number" />
+                    </div>
+                    <div class="input-field-wrapper">
+                        <label>Room Width (Feet):</label>
+                        <input id="roomWidth" type="number" />
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-field-wrapper">
+                        <label>Tile Length (Inches):</label>
+                        <input id="tileLength" type="number" value="24" />
+                    </div>
+                    <div class="input-field-wrapper">
+                        <label>Tile Width (Inches):</label>
+                        <input id="tileWidth" type="number" value="24" />
+                    </div>
+                </div>
+
+                <div class="input-field-wrapper">
+                    <label>Waste / Cutting Allowance (%):</label>
+                    <input id="wasteAllowance" type="number" value="10" />
+                </div>
+
+                <div class="input-row">
+                    <div class="input-field-wrapper">
+                        <label>Select Currency:</label>
+                        <select id="currencySelect">
+                            <option value="$" selected>USD ($)</option>
+                            <option value="€">EUR (€)</option>
+                            <option value="£">GBP (£)</option>
+                            <option value="₹">INR (₹)</option>
+                            <option value="A$">AUD (A$)</option>
+                            <option value="C$">CAD (C$)</option>
+                        </select>
+                    </div>
+                    <div class="input-field-wrapper">
+                        <label>Cost per Tile (Manual):</label>
+                        <input id="unitCost" type="number" value="3" />
+                    </div>
+                </div>
+            </div>
+
+            <button class="calc-btn" onclick="calculateFlooringCost()">Calculate Flooring Estimate</button>
+            
+            <!-- Result Output Box -->
+            <div id="resultBox" class="result-box">
+                <p><strong>Room Area:</strong> <span id="roomArea">0</span> sq.ft</p>
+                <p><strong>Total Tiles Needed:</strong> <span id="totalTiles">0</span></p>
+                <p><strong>Estimated Total Cost:</strong> <span id="currencySymbol">$</span><span id="totalCost">0.00</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript Link -->
+<script src="https://cdn.jsdelivr.net/gh/username/repository@main/script.js"></script>
